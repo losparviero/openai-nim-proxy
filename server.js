@@ -32,6 +32,13 @@ const MODEL_MAPPING = {
   'kimi-k2.5': 'moonshotai/kimi-k2.5'
 };
 
+// Key validation at startup
+
+if (!process.env.NIM_API_KEY) {
+  console.error("NIM_API_KEY is missing!");
+  process.exit(1);
+}
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ 
