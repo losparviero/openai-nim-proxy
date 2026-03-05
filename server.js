@@ -10,6 +10,13 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// Strip any Authorization header sent by client (Janitor etc.)
+app.use((req, res, next) => {
+  delete req.headers.authorization;
+  delete req.headers.Authorization;
+  next();
+});
+
 // NVIDIA NIM API configuration
 const NIM_API_BASE = process.env.NIM_API_BASE || 'https://integrate.api.nvidia.com/v1';
 const NIM_API_KEY = process.env.NIM_API_KEY;
